@@ -1,0 +1,32 @@
+@font-face{
+    font-family: 'Cent';
+    src: url('../font/cent-regular.eot');
+    src: url('../font/cent-regular.eot?#iefix') format('embedded-opentype'),
+    url('../font/cent-regular.woff') format('woff'),
+    url('../font/cent-regular.ttf') format('truetype'),
+    url('../font/cent-regular.svg#21_centregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cent';
+    src: url('../font/cent-italic.eot');
+    src: url('../font/cent-italic.eot?#iefix') format('embedded-opentype'),
+    url('../font/cent-italic.woff') format('woff'),
+    url('../font/cent-italic.ttf') format('truetype'),
+    url('../font/cent-italic.svg#21_centitalic') format('svg');
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Hermi';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../font/hermitype.eot');
+    src: url('../font/hermitype.eot?#iefix') format('embedded-opentype'),
+         url('../font/hermitype.woff') format('woff'),
+         url('../font/hermitype.ttf') format('truetype'),
+         url('../font/hermitype.svg#HermiTypeRegular') format('svg');
+}

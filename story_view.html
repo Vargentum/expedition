@@ -1,0 +1,156 @@
+{% extends 'base.html' %}{% load alllbr %}
+
+{% block meta %}
+<meta property="og:title" content="{{ story.title }}" />
+<meta property="og:description" content="{{ story.sharing }}" />
+<meta property="og:image" content="http://{{ site.domain }}{{ STATIC_URL }}img/300x200.jpg" />
+{% endblock %}
+
+{% block title %}{{ story.title }}{% endblock %}
+
+{% block top_css %}
+<style>
+    ul.social a {border-bottom: 0; font-style: normal;}
+    ul.social li.socialVk a{background: none;}
+</style>
+{% endblock %}
+
+{% block body_class %}class="detailStoryPage"{% endblock %}
+
+{% block header_hidden %}hidden{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+
+        <div class="content b-story">
+
+          <header class="b-story__header">
+            <h1>{{ story.title }}</h1>
+            {% if prev_story %}
+            <a class="leftStory" href="{{ prev_story.get_absolute_url }}">{{ prev_story.title }}</a>
+            {% endif %}
+            {% if next_story %}
+            <a class="rightStory" href="{{ next_story.get_absolute_url }}">{{ next_story.title }}</a>
+            {% endif %}
+          </header>
+          <div class="b-story__main">
+          {% if story.screen %}
+            <div class="postImg">
+              <img class="postImg__img" src="{{ story.screen.small.url }}" alt="" />
+              <i class="postImg__icon"></i>
+            </div>
+            {% endif %}
+            <div class="both"></div>
+            <div>{{ story.text|alllbr }}</div>
+          </div>
+          <footer class="b-story__footer">
+            <div class="obj-container">
+            <ul class="historyInfo both">
+                <li class="author">{{ story.user.first_name }} {{ story.user.last_name }}</li>
+                <li class="date">{{ story.date_added|date:"j E Y" }}</li>
+
+                    <li class="rate"{% if not story.rating_set.count %} style="display: none;"{% endif %}>
+                        <span class="c-story-rating">{{ story.rating_set.count }}</span> рейтинг
+                    </li>
+                <li class="tag">{{ story.get_year_display }}</li>
+            </ul>
+            <div class="tagBlock both">
+                <ul class="listTag">
+                    {% for t in story.tags.all %}
+                        <li><a href="{% url "core_stories" %}?&tag={{ t }}">{{ t }}</a>{% if not forloop.last %},{% endif %} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <ul class="social">
+                {% if is_voted %}
+                    <li class="socialLike disable">
+                        <a>Нравится</a>
+                    </li>
+                {% else %}
+                    <li class="socialLike">
+                        <a href="#" data-url="{% url "core_story_like" pk=story.pk %}" class="like-history" {% if not request.user.is_authenticated %}data-auth="required"{% endif %}>Нравится</a>
+                    </li>
+                {% endif %}
+                <li class="">
+                    <div id="vk_like" ></div>
+                </li>
+                <li class="socialFb">
+                    <a onclick='postToFeed(); return false;' href="#"></a>
+                </li>
+                <li class="socialOk">
+                    <div id="ok_shareWidget"></div>
+                </li>
+            </ul>
+
+            <a href="{% url "core_story_add" %}" class="addHistory redButton"
+                   {% if not request.user.is_authenticated %}data-auth="required"{% endif %}>Поделиться своей историей</a>
+            </div>
+          </footer>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block middle_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jtooltip.js"></script>
+    <!-- <script type="text/javascript" src="markup/js/jtextarea.js"></script>-->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.formstyler.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.placeholder.js"></script>
+
+    <script>
+        $(function() {
+            $('.like-history').click(function() {
+                var $this = $(this);
+                if ($this.attr('data-auth') != "required") {
+                    if (!$this.parents('.socialLike').hasClass('disable')) {
+                        $.get($this.data('url'), {}, function(resp) {
+                            if (resp.status == 'success') {
+                                $this.parents('.socialLike').addClass('disable');
+                                $('.historyInfo .rate').show();
+                                $('.historyInfo .c-story-rating').html(resp.rating);
+
+                            }
+                        });
+                    }
+                    return false;
+                }
+            });
+        });
+    </script>
+    <script>
+
+        !function (d, id, did, st) {
+          var js = d.createElement("script");
+          js.src = "http://connect.ok.ru/connect.js";
+          js.onload = js.onreadystatechange = function () {
+          if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+            if (!this.executed) {
+              this.executed = true;
+              setTimeout(function () {
+                OK.CONNECT.insertShareWidget(id,did,st);
+              }, 0);
+            }
+          }};
+          d.documentElement.appendChild(js);
+        }(document,"ok_shareWidget","http://{{ site.domain }}{% url 'core_story_view' pk=story.pk %}","{width:95,height:25,st:'rounded',sz:12,ck:2,nc:1}");
+
+        document.getElementById('vk_like').innerHTML = VK.Share.button(false, {type: "round_nocount", text: "Это интересно"});
+
+        function postToFeed() {
+            FB.ui({
+                method: 'feed',
+                link: 'http://{{ site.domain }}{% url 'core_story_view' pk=story.pk %}',
+                picture: 'http://{{ site.domain }}{{ STATIC_URL }}img/300x200.jpg',
+                name: '{{ story.title }}',
+                caption: '',
+                description: "{{ story.sharing|escapejs }}",
+                redirect_uri: '{{ site.domain }}{% url 'core_story_view' pk=story.pk %}'
+            }, function() {});
+        }
+    </script>
+{% endblock %}
+
+{% block bottom_js %}
+
+{% endblock %}
