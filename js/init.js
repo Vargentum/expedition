@@ -1,3 +1,16 @@
+function centerElements(){
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    $('.b-for_old_browsers').css({
+        width: windowWidth,
+        height: windowHeight
+    });
+    $('.b-for_old_browsers__label').css({
+        'margin-top': $('.b-for_old_browsers__label').height() * -0.5,
+        'margin-left': $('.b-for_old_browsers__label').width() * -0.5
+    });
+}
+
 $(window).load(function(){
     //    cloud-icon (story image) positioning
     $('.postImg').each(function(){
@@ -5,9 +18,27 @@ $(window).load(function(){
         var icon = $(this).find('.postImg__icon');
         $(icon).css('left', $(image).width() +15).show();
     });
+    centerElements();
 });
+$(window).resize(function(){ centerElements() });
+
 
 $(function(){
+    /*story gallery lightbox*/
+    $(".fancybox").fancybox({
+        helpers : {
+            title	: { type : 'inside' },
+            overlay : {
+                css : {
+                    'background' : 'rgb(237,237,237)',
+                    'background' : 'rgba(237,237,237,.5)'
+                }
+            }
+        },
+        padding: [20,75,20,75],
+        nextEffect: 'none',
+        prevEffect: 'none'
+    });
 
 //    $('#initialPreloaderFade .percent').css({
 //        'height': $(window).height(),
@@ -251,6 +282,7 @@ $(function(){
 		return false;
 	});
 
+
 //    input file hover
 //    $('.selectFile input[type=file]').hover(function(){
 //        $('.selectFile .browse').css({
@@ -267,3 +299,4 @@ function textAreaAdjust(o) {
 //    o.style.height = "1px";
 //    o.style.height = (31+o.scrollHeight)+"px";
 }
+

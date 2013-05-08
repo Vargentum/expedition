@@ -1,7 +1,7 @@
 @import 'reset.css';
 @import 'font.css';
 @import 'jquery.formstyler.css';
-
+@import "jquery.fancybox.css";
 
 
 .both:after{
@@ -51,7 +51,7 @@ body.indexPage{
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 9999;
     background: url(../img/headerBg.png) repeat-x;
 }
 
@@ -254,8 +254,8 @@ hr{display:none;}
 
 body .content{
     padding-top: 200px;
-    min-width: 560px;
-    width: 560px;
+    min-width: 600px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -533,7 +533,7 @@ body .content h1 {
     font-size: 16px;
     border-bottom: 1px solid #ccc;
     display: block;
-    width: 560px;
+    width: 600px;
     padding-bottom: 3px;
     margin-bottom: 45px;
     margin-top: 45px;
@@ -545,7 +545,7 @@ body .content h1 {
     font-family: Tahoma;
     font-size: 16px;
     resize: none;
-    width: 560px;
+    width: 600px;
     min-height: 190px;
     line-height: 31px;
     background: url(../img/textareaBg.png);
@@ -1080,8 +1080,8 @@ body .content h1 {
 .aboutPage .wrapper{
     margin: 0 auto;
     width: 1082px;
-    padding-bottom: 50px;
-    background: url(../img/aboutBg.png) no-repeat 90px 100px;
+    /*padding-bottom: 50px;*/
+    background: url(../img/aboutBg.png) no-repeat 40% 100px;
 }
 
 .modalWrap{
@@ -2032,6 +2032,9 @@ h2 a,
 }
 
 
+.b-blog_articles__list{
+    position: relative;
+}
 .b-stories_list{}
 .b-stories_list__header{border-bottom: 1px solid #e5e5e5;}
 .b-stories_list__header.m-padding_bottom{padding-bottom: 18px;}
@@ -2039,32 +2042,50 @@ h2 a,
     position: relative;
 }
 .b-stories_list__container{
-    width: 560px;
+    width: 600px;
     margin: 0 auto;
 }
 
 .obj-container{
-    width: 560px;
+    width: 600px;
     margin: 0 auto;
 }
 
 .b-story{
     position: relative;
 }
+.b-story.content{
+    padding-bottom: 0 !important;
+}
 .b-story__header{
     position: relative;
-    width: 560px;
+    width: 600px;
     margin: 0 auto;
 
+}
+.b-story__header.m-margin_bottom{
+    margin-bottom: 20px;
+}
+.b-story__location{
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAQAAADSxYyGAAAAX0lEQVQIHTXB0QlBYQAG0E9KieHEAub4F2Gf8+DBA3UHuHOQfJSck8Te5GVySGLnrarednFXw9ZQt3iqVWKrHjGrYWOoOYaqqhqxdFJVZ8skFi7qYpEfR3XMn7Wrdb4+l8JQ8+sJu6gAAAAASUVORK5CIIA=) 3px 50% no-repeat !important;
 }
 .b-story__main{
     width: 600px;
     margin: 0 auto;
+    line-height: 1.4;
+    padding-bottom: 20px;
+}
+.b-story__main p{
+    font-size: 14px;
+    padding-bottom: 20px;
 }
 .b-story__footer{
     border-top: 1px solid #e5e5e5;
     margin-top: 10px;
     padding-top: 10px;
+}
+.b-story__footer.m-padding_top{
+    padding-top: 40px;
 }
 
 .b-pageIndex__down{
@@ -2118,3 +2139,84 @@ h2 a,
 }
 
 
+
+
+/*expedition page styles*/
+.b-story__gallery{}
+.b-story__gallery__unit{
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 10px;
+    margin-right: 9px;
+}
+.ie87 .b-story__gallery__unit{
+    margin-right:5px;
+}
+.b-story__gallery__unit{border-bottom: none !important;}
+.b-story__gallery__unit a{border-bottom: none;}
+.b-story__gallery__unit:nth-child(3n){
+    margin-right: 0;
+}
+
+.m-blog__article__gallery{
+    text-align: center;
+}
+.m-blog__article__gallery .b-story__gallery__unit:nth-child(3n){
+    margin-right:10px;
+}
+
+
+.b-blog__title{
+    margin-bottom: 25px !important;
+}
+.b-blog__header p{ padding-bottom : 20px !important;}
+
+.b-blog__article{
+    margin: 50px 0 100px;
+}
+.b-blog__article__header{
+    margin-bottom: 20px;
+}
+.b-blog__article__main{}
+.b-blog__article__main p{
+    font-size: 14px !important;
+    padding-bottom: 15px !important;
+}
+.b-blog__article__footer{
+    margin-top: 15px;
+    padding: 10px 0;
+    border-top: 1px solid #e5e5e5;
+}
+
+.obj-centered_content{
+    margin: 20px 0;
+    text-align: center;
+}
+.obj-centered_content>*{
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.b-for_old_browsers{
+    position: relative;
+    text-align: center;
+}
+.b-for_old_browsers__image{
+    position: relative;
+    top:-45px;
+}
+.b-for_old_browsers__label{
+    font: italic 20px/1.5 Tahoma, Verdana, Segoe, sans-serif;
+    color:#000;
+    position: absolute;
+    top:50%;
+    left:50%;
+    text-align: center;
+}
+.b-for_old_browsers__label a{color:#ed1c24;}
+
+
+.aboutPage.lentaPage .wrapper{
+    margin-bottom: 0 !important;
+}
